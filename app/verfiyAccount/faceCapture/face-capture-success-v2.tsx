@@ -5,6 +5,7 @@ import LoadingIndicator from '@/components/Loading';
 import { post } from '@/fetch/apiClient';
 import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
+import RNFS from 'react-native-fs';
 
 const FaceCaptureV2Success = ({ route }: { route: { params: { portrait_image: any, imageOcr: any } } }) => {
     const [isLoading, setIsLoading] = useState<boolean>(true)

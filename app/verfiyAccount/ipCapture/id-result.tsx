@@ -117,7 +117,7 @@ const IDCardResultScreen = ({ route }: { route: { params: { ocrData: any } } }) 
                         style={styles.continueButton}
                         onPress={() => (navigation as any).replace('FaceCapture', { imageOcr: data?.imageUpload })}
                     >
-                        <Text style={styles.continueButtonText}>Tiếp tục</Text>
+                        <Text style={styles.continueButtonText}>Next</Text>
                     </TouchableOpacity>
                 </ScrollView>
             ) : (

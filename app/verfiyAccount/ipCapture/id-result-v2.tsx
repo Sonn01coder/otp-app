@@ -3,10 +3,12 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, Pla
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { post } from '@/fetch/apiClient';
 import LoadingIndicator from '@/components/Loading';
+import RNFS from 'react-native-fs';
 
 const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }) => {
 
     const testImage = require('@/assets/images/ocr.jpeg')
+
     const [data, setData] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -25,30 +27,42 @@ const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }
     ];
 
     const handleOCR = async () => {
+        setIsLoading(true);
         try {
-            if (!ocrData) {
-                throw new Error("No image selected");
+            // B1: Đường dẫn gốc ảnh trong thư mục assets
+            const sourcePath = Image.resolveAssetSource(require('@/assets/images/ocr.jpeg')).uri;
+
+            // B2: Tạo đường dẫn đích tạm thời để copy vào bộ nhớ
+            const destPath = `${RNFS.DocumentDirectoryPath}/ocr.jpg`;
+
+            if (Platform.OS === 'android' && sourcePath.startsWith('asset:/')) {
+                // Android không thể dùng trực tiếp asset:/ nên phải đọc và ghi lại
+                const fileData = await RNFS.readFileAssets('images/ocr.jpeg', 'base64'); // Tên file tính từ android/app/src/main/assets/
+                await RNFS.writeFile(destPath, fileData, 'base64');
+            } else {
+                // iOS hoặc uri hợp lệ thì copy luôn
+                await RNFS.copyFile(sourcePath, destPath);
             }
 
+            // B3: Upload file đã copy
             const formData: any = new FormData();
-            formData.append("image", {
-                uri: Image.resolveAssetSource(testImage).uri,
-                type: "image/jpeg",
-                name: "ocr.jpg",
+            formData.append('image', {
+                uri: `file://${destPath}`, // Đường dẫn chuẩn cho FormData
+                type: 'image/jpeg',
+                name: 'ocr.jpg',
             });
 
             const res: any = await post(
                 'kyc/OCR',
                 formData,
-                {
-                    'Content-Type': 'multipart/form-data',
-                },
+                {}, // KHÔNG set Content-Type ở đây
                 true
             );
-            setData(res)
+
+            setData(res);
         } catch (error) {
-            console.error("OCR Error:", error);
-            Alert.alert("Error", "Failed to process OCR. Please try again.");
+            console.error('OCR Error:', error);
+            Alert.alert('Error', 'Failed to process OCR. Please try again.');
         } finally {
             setIsLoading(false);
         }
