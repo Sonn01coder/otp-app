@@ -1,10 +1,10 @@
 // File: navigation/AppNavigator.tsx
 import LoginScreen from '@/app/auth/login';
 import HomeScreen from '@/app/home';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import PinVerificationScreen from '@/app/registerTransaction/transactionOTP/smart-otp-register';
 import RegistrationSuccessScreen from '@/app/verfiyAccount/success-account';
 import TransactionSuccessScreen from '@/app/registerTransaction/success-transaction';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import FaceRegisterTransaction from '@/app/registerTransaction/transactionFace/face-register-transaction';
 import TransactionMethodScreen from '@/app/registerTransaction/transaction-register';
 import AuthScreen from '@/app/default';
@@ -33,7 +33,10 @@ const Stack = createNativeStackNavigator();
 export default function AppNavigator() {
 
     return (
-        <Stack.Navigator initialRouteName="Default">
+        <Stack.Navigator initialRouteName="Default"
+            screenOptions={{
+                animation: 'slide_from_right', // hoặc 'slide_from_right', 'slide_from_bottom'
+            }}>
             <Stack.Screen name="Home" component={HomeScreen} />
             <Stack.Screen name="FaceCapture" component={FaceCaptureScreen} />
             <Stack.Screen name="FaceCaptureV2" component={FaceCaptureV2Screen} />
@@ -61,6 +64,6 @@ export default function AppNavigator() {
             <Stack.Screen name="FaceTransactionRegisterSuccess" component={FaceTransactionRegisterSuccess} />
             <Stack.Screen name="IDCaptureV2Screen" component={IDCaptureV2Screen} />
             <Stack.Screen name="FaceTransferSuccess" component={FaceTransferSuccess} />
-        </Stack.Navigator>
+        </Stack.Navigator >
     );
 }

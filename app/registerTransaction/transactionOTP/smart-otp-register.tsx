@@ -24,7 +24,7 @@ const PinVerificationScreen = () => {
     const verifyPin = async () => {
         setLoading(true);
 
-        // gọi API
+        // Call API
         try {
             const res = await post('otp/verify-pin', { pin: pin })
             if (res.success) {

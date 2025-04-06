@@ -39,10 +39,10 @@ const PinRegistrationScreen = () => {
     useEffect(() => {
         if (step === 2 && confirmPin.length === 4) {
             if (pin === confirmPin) {
-
-                handleRegisterPin()
-
-                // Lưu PIN vào AsyncStorage hoặc state management ở đây
+                // Add delay before calling API
+                setTimeout(() => {
+                    handleRegisterPin();
+                }, 8800);
             } else {
                 Alert.alert('Error', 'PIN does not match. Please try again', [
                     {
@@ -61,7 +61,12 @@ const PinRegistrationScreen = () => {
     const handleNumberPress = (num: any) => {
         if (step === 1 && pin.length < 4) {
             setPin(pin + num);
-            if (pin.length === 3) setStep(2); // Chuyển bước khi đủ 4 số
+            if (pin.length === 3) {
+                // Add delay before moving to step 2
+                setTimeout(() => {
+                    setStep(2);
+                }, 800);
+            }
         } else if (step === 2 && confirmPin.length < 4) {
             setConfirmPin(confirmPin + num);
         }

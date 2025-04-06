@@ -1,4 +1,4 @@
-const BASE_URL = 'https://6caa-2402-800-61c5-60b0-e9c6-6ed0-4c5-b3c4.ngrok-free.app';
+const BASE_URL = 'https://9c6d-2402-800-61c5-60b0-6437-1744-db1d-7658.ngrok-free.app';
 
 // Biến lưu trữ token trong memory
 let authToken = null;
