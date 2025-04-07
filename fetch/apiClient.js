@@ -1,4 +1,4 @@
-const BASE_URL = 'https://9c6d-2402-800-61c5-60b0-6437-1744-db1d-7658.ngrok-free.app';
+const BASE_URL = 'https://otp.mmaubox.com';
 
 // Biến lưu trữ token trong memory
 let authToken = null;

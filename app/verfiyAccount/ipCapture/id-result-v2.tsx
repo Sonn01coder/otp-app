@@ -3,13 +3,17 @@ import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Alert, Pla
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { post } from '@/fetch/apiClient';
 import LoadingIndicator from '@/components/Loading';
+import * as ImageManipulator from "expo-image-manipulator";
+import * as FileSystem from "expo-file-system";
+import { Asset } from 'expo-asset';
+
 
 const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }) => {
 
-    const testImage = require('@/assets/images/ocr.jpeg')
     const [data, setData] = useState<any>(null)
     const [isLoading, setIsLoading] = useState<boolean>(true)
 
+    const testImage = require('@/assets/images/ocr.jpeg')
 
     const navigation = useNavigation();
 
@@ -17,25 +21,46 @@ const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }
 
     // Các trường thông tin CCCD
     const fields = [
-        { label: 'ID', value: data?.data?.data?.ocr?.id_eng },
-        { label: 'Name', value: data?.data?.data?.ocr?.name_eng },
-        { label: 'Father Name', value: data?.data?.data?.ocr?.father_name_eng },
-        { label: 'Gender', value: data?.data?.data?.ocr?.gender },
-        { label: 'Issue Date', value: data?.data?.data?.ocr?.issue_date_en },
+        { label: 'ID', value: data?.result?.ocr?.id_eng },
+        { label: 'Name', value: data?.result?.ocr?.name_eng },
+        { label: 'Father Name', value: data?.result?.ocr?.father_name_eng },
+        { label: 'Gender', value: data?.result?.ocr?.gender },
+        { label: 'Issue Date', value: data?.result?.ocr?.issue_date_en },
     ];
 
     const handleOCR = async () => {
         try {
+
+            const asset = Asset.fromModule(require('@/assets/images/ocr.jpeg'));
+
+            await asset.downloadAsync()
+
+            const fileUri = asset.localUri || asset.uri
             if (!ocrData) {
                 throw new Error("No image selected");
             }
 
+            const imageUri = Platform.OS === "ios" ? ocrData.replace("file://", "") : ocrData;
+
+            // 📌 Kiểm tra file có tồn tại không
+            const fileInfo = await FileSystem.getInfoAsync(imageUri);
+            if (!fileInfo.exists) {
+                throw new Error("File does not exist");
+            }
+
+            const resizedImage = await ImageManipulator.manipulateAsync(
+                ocrData,
+                [{ resize: { width: 800 } }], // Resize width, giữ aspect ratio
+                { compress: 0.7, format: ImageManipulator.SaveFormat.JPEG }
+            );
+
             const formData: any = new FormData();
             formData.append("image", {
-                uri: Image.resolveAssetSource(testImage).uri,
+                uri: fileUri,
                 type: "image/jpeg",
                 name: "ocr.jpg",
             });
+
 
             const res: any = await post(
                 'kyc/ocr-result',
@@ -69,7 +94,7 @@ const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }
                 <Text style={styles.loadingText}>Processing...</Text>
             </View>
         ) : (
-            data?.data?.response_code === 200 ? (
+            data?.message === 'OCR success' ? (
                 <ScrollView contentContainerStyle={styles.container}>
                     {/* Phần header */}
                     <View style={styles.header}>
@@ -100,7 +125,7 @@ const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }
                         style={styles.continueButton}
                         onPress={() => (navigation as any).replace('FaceCapture', { imageOcr: data?.imageUpload })}
                     >
-                        <Text style={styles.continueButtonText}>Tiếp tục</Text>
+                        <Text style={styles.continueButtonText}>NEXT</Text>
                     </TouchableOpacity>
                 </ScrollView>
             ) : (

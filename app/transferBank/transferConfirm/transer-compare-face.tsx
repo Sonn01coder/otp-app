@@ -59,7 +59,6 @@ const FaceTransferSuccess = ({ route }: { route: { params: { portrait: any, amou
             setData(res);
 
         } catch (error) {
-            console.log('err', error)
             throw error
         } finally {
             setIsLoading(false);

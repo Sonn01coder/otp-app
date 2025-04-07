@@ -6,6 +6,8 @@ import { post } from '@/fetch/apiClient';
 import * as FileSystem from "expo-file-system";
 import * as ImageManipulator from "expo-image-manipulator";
 import { getMe } from '@/fetch/authAPI';
+import { Asset } from 'expo-asset';
+
 
 const FaceTransactionRegisterSuccess = ({ route }: { route: { params: { portrait: any } } }) => {
     const testImage = require('@/assets/images/ocr.jpeg')
@@ -29,6 +31,12 @@ const FaceTransactionRegisterSuccess = ({ route }: { route: { params: { portrait
     const handleCompare = async (imageOcr: any) => {
         try {
 
+            const asset = Asset.fromModule(require('@/assets/images/ocr.jpeg'));
+
+            await asset.downloadAsync()
+
+            const fileUri = asset.localUri || asset.uri
+
             if (!portrait) {
                 throw new Error("No image selected");
             }
@@ -49,7 +57,7 @@ const FaceTransactionRegisterSuccess = ({ route }: { route: { params: { portrait
             // Tạo FormData
             const formData: any = new FormData();
             formData.append('portrait_image', {
-                uri: resizedImage.uri,
+                uri: fileUri,
                 // uri: Image.resolveAssetSource(testImage).uri,
                 type: 'image/jpeg', // Định dạng ảnh
                 name: 'ocr.jpeg', // Tên file

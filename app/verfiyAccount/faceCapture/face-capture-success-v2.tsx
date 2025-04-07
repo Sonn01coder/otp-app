@@ -77,7 +77,7 @@ const FaceCaptureV2Success = ({ route }: { route: { params: { portrait_image: an
                 <Text style={styles.loadingText}>Processing...</Text>
             </View > :
             (
-                data?.remoteResponse?.ocr_results?.response_code === 200 ?
+                data?.remoteResponse?.compare_face_results?.response_code === 200 ?
                     <View style={styles.container}>
                         {/* Tiêu đề */}
                         <Text style={styles.title}>FACE AUTHENTICATION SUCCESSFUL</Text>
