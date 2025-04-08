@@ -31,11 +31,11 @@ const FaceTransactionRegisterSuccess = ({ route }: { route: { params: { portrait
     const handleCompare = async (imageOcr: any) => {
         try {
 
-            const asset = Asset.fromModule(require('@/assets/images/ocr.jpeg'));
+            // const asset = Asset.fromModule(require('@/assets/images/ocr.jpeg'));
 
-            await asset.downloadAsync()
+            // await asset.downloadAsync()
 
-            const fileUri = asset.localUri || asset.uri
+            // const fileUri = asset.localUri || asset.uri
 
             if (!portrait) {
                 throw new Error("No image selected");
@@ -57,7 +57,7 @@ const FaceTransactionRegisterSuccess = ({ route }: { route: { params: { portrait
             // Tạo FormData
             const formData: any = new FormData();
             formData.append('portrait_image', {
-                uri: fileUri,
+                uri: resizedImage.uri,
                 // uri: Image.resolveAssetSource(testImage).uri,
                 type: 'image/jpeg', // Định dạng ảnh
                 name: 'ocr.jpeg', // Tên file

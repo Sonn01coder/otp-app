@@ -38,7 +38,7 @@ const FaceTransferSuccess = ({ route }: { route: { params: { portrait: any, amou
 
             // Tạo FormData
             const formData: any = new FormData();
-            formData.append('portrait_1', {
+            formData.append('portraint_1', {
                 uri: resizedImage.uri,
                 // uri: Image.resolveAssetSource(testImage).uri,
                 type: 'image/jpeg', // Định dạng ảnh
@@ -49,7 +49,7 @@ const FaceTransferSuccess = ({ route }: { route: { params: { portrait: any, amou
 
             // Gửi request lên server
             const res = await post(
-                'withdraw',
+                'kyc/withdraw',
                 formData,
                 {
                     'Content-Type': 'multipart/form-data',

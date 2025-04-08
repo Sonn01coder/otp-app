@@ -93,7 +93,7 @@ const IDCardResultScreen = ({ route }: { route: { params: { ocrData: any } } }) 
                         <Text style={styles.successTitle}>OCR Successfully</Text>
                         {ocrData && (
                             <Image
-                                source={testImage}
+                                source={{ uri: ocrData }}
                                 style={styles.idImage}
                                 resizeMode="contain"
                             />

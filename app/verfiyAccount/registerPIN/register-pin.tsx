@@ -42,7 +42,7 @@ const PinRegistrationScreen = () => {
                 // Add delay before calling API
                 setTimeout(() => {
                     handleRegisterPin();
-                }, 8800);
+                }, 800);
             } else {
                 Alert.alert('Error', 'PIN does not match. Please try again', [
                     {
@@ -65,7 +65,7 @@ const PinRegistrationScreen = () => {
                 // Add delay before moving to step 2
                 setTimeout(() => {
                     setStep(2);
-                }, 800);
+                }, 300);
             }
         } else if (step === 2 && confirmPin.length < 4) {
             setConfirmPin(confirmPin + num);
