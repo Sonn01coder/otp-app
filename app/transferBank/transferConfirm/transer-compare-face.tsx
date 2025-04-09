@@ -85,7 +85,7 @@ const FaceTransferSuccess = ({ route }: { route: { params: { portrait: any, amou
                 <Text style={styles.loadingText}>Processing...</Text>
             </View > :
             (
-                data?.remoteResponse?.response_code === 200 ?
+                data?.message === 'Withdrawal successful' ?
                     <View style={styles.container}>
                         {/* Ảnh khuôn mặt */}
                         <Image
