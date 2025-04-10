@@ -35,6 +35,7 @@ export default function AppNavigator() {
     return (
         <Stack.Navigator initialRouteName="Default"
             screenOptions={{
+                headerShown: false,
                 animation: 'slide_from_right', // hoặc 'slide_from_right', 'slide_from_bottom'
             }}>
             <Stack.Screen name="Home" component={HomeScreen} />
