@@ -21,12 +21,6 @@ const RegistrationSuccessScreen = () => {
                 {'\n'}Start exploring the app now!
             </Text>
 
-            {/* Ảnh minh họa */}
-            <Image
-                source={require('@/assets/images/cccd.png')}
-                style={styles.illustration}
-                resizeMode="contain"
-            />
 
             {/* Nút quay về trang chủ */}
             <TouchableOpacity

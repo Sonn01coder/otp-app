@@ -58,6 +58,13 @@ const HomeScreen = () => {
                     <Text style={styles.title}>HOME</Text>
                 </View>
 
+                <View style={styles.balanceContainer}>
+                    <Text style={styles.balanceLabel}>Hi, {data?.name || 'User'}</Text>
+                    <Text style={styles.balanceAmount}>
+                        {data?.balance ? `$${data.balance.toLocaleString()}` : '$0'}
+                    </Text>
+                </View>
+
                 {/* Nội dung chính */}
                 <View style={styles.content}>
                     <Image
@@ -135,9 +142,9 @@ const styles = StyleSheet.create({
         padding: 24,
     },
     illustration: {
-        width: 250,
+        width: 350,
         height: 200,
-        marginBottom: 32,
+        marginBottom: 26,
     },
     welcomeText: {
         fontSize: 22,
@@ -156,7 +163,28 @@ const styles = StyleSheet.create({
         fontSize: 16,
         color: '#666',
         textAlign: 'center',
-        marginBottom: 40,
+        marginBottom: 30,
+    },
+    balanceContainer: {
+        backgroundColor: 'white',
+        borderRadius: 12,
+        padding: 15,
+        margin: 15,
+        shadowColor: '#c3c3c3',
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        elevation: 3,
+    },
+    balanceLabel: {
+        fontSize: 22,
+        fontWeight: 800,
+        marginBottom: 5,
+    },
+    balanceAmount: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        color: '#007AFF',
     },
     registerButton: {
         backgroundColor: '#007AFF',
