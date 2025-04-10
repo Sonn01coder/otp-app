@@ -9,7 +9,7 @@ const TransferConfirmOTP = ({ route }: any) => {
     const [loading, setLoading] = useState(false);
     const navigation = useNavigation();
 
-    const amount = route.params.amount
+    const { paymentMethod, amount } = route.params
 
     const handleNumberPress = (num: string) => {
         if (pin.length < 4) {
@@ -29,7 +29,7 @@ const TransferConfirmOTP = ({ route }: any) => {
         try {
             const res = await post('otp/verify-pin', { pin: pin })
             if (res.success) {
-                (navigation as any).replace('TransferSendOTP', { amount: amount, secretKey: res.secretKey });
+                (navigation as any).replace(paymentMethod === 'face' ? 'TransferConfirmFace' : 'TransferSendOTP', { amount: amount, secretKey: res.secretKey });
             }
         } catch (error) {
             Alert.alert('Error', 'An error occurred while verifying the PIN. Please try again.');
