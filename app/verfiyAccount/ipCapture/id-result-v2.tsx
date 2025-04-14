@@ -104,10 +104,11 @@ const IDCardResultV2Screen = ({ route }: { route: { params: { ocrData: any } } }
                     Unable to recognize information from the image. Please try again with a clearer image.
                 </Text>
                 <TouchableOpacity
-                    style={styles.button}
-                    onPress={() => (navigation as any).replace('IDCaptureV2Screen')}
+                    style={styles.backButton_error}
+                    // onPress={() => (navigation as any).replace('IDCaptureV2Screen')} FaceCapture
+                    onPress={() => (navigation as any).replace('FaceCapture')}
                 >
-                    <Text style={styles.buttonText}>BACK</Text>
+                    <Text style={styles.buttonText_error}>BACK</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -178,6 +179,19 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         padding: 20,
         backgroundColor: '#fff',
+    },
+    backButton_error: {
+        backgroundColor: '#007AFF',
+        paddingVertical: 12,
+        paddingHorizontal: 30,
+        borderRadius: 25,
+        width: '80%',
+    },
+    buttonText_error: {
+        color: 'white',
+        fontSize: 16,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
     header: {
         alignItems: 'center',

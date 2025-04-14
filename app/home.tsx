@@ -23,22 +23,25 @@ const HomeScreen = () => {
     }
 
     const handleCreateSession = async () => {
-        try {
-            // Gọi API tạo session
-            const res = await post('kyc/create_session');
+        (navigation as any).navigate('TransferConfirmFace', { amount: 1000 })
+        // (navigation as any).navigate('TransferConfirmFace')
+        // try {
+        //     // Gọi API tạo session
+        //     const res = await post('kyc/create_session');
 
-            // Kiểm tra phản hồi từ API
-            if (res?.data.access_token) {
-                // Điều hướng đến màn hình TransactionRegister với các phương thức thanh toán
-                (navigation as any).navigate('IdCapture')
-            } else {
-                // Hiển thị thông báo lỗi nếu API trả về không thành công
-                Alert.alert('Error', res?.message || 'Failed to create session.');
-            }
-        } catch (error) {
-            // Xử lý lỗi khi gọi API
-            Alert.alert('Error', 'An error occurred while creating the session. Please try again.');
-        }
+
+        //     // Kiểm tra phản hồi từ API
+        //     if (res?.data.access_token) {
+        //         // Điều hướng đến màn hình TransactionRegister với các phương thức thanh toán
+        //         // (navigation as any).navigate('IdCapture')
+        //     } else {
+        //         // Hiển thị thông báo lỗi nếu API trả về không thành công
+        //         Alert.alert('Error', res?.message || 'Failed to create session.');
+        //     }
+        // } catch (error) {
+        //     // Xử lý lỗi khi gọi API
+        //     Alert.alert('Error', 'An error occurred while creating the session. Please try again.');
+        // }
     };
 
     useEffect(() => {
