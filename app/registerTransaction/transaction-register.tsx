@@ -194,6 +194,13 @@ const TransactionMethodScreen = ({ route }: {
                 <Text style={styles.continueText}>NEXT</Text>
             </TouchableOpacity>
 
+            <TouchableOpacity
+                style={styles.continueBack}
+                onPress={() => (navigation as any).navigate('Home')}
+            >
+                <Text style={styles.continueBackText}>BACK</Text>
+            </TouchableOpacity>
+
         </SafeAreaView>
     );
 };
@@ -340,6 +347,24 @@ const styles = StyleSheet.create({
         color: 'white',
         fontWeight: 'bold',
     },
+    continueBack: {
+        backgroundColor: 'white',       // Nền trắng
+        borderWidth: 1,                // Độ dày viền
+        borderColor: '#3498db',
+        padding: 16,
+        borderRadius: 8,
+        alignItems: 'center',
+        margin: 20,
+        shadowOffset: { width: 0, height: 1 },
+        shadowOpacity: 0.2,
+        shadowRadius: 4,
+        marginBottom: 30,
+    },
+    continueBackText: {
+        color: '#3498db',              // Chữ màu xanh
+        fontSize: 16,
+        fontWeight: 'bold',
+    }
 });
 
 export default TransactionMethodScreen;

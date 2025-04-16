@@ -12,7 +12,7 @@ export default function TransferConfirmFace({ route }: any) {
 
     const navigation = useNavigation()
 
-    const amount = route.params.amount
+    const { amount, secretKey } = route.params
 
     const captureFace = async () => {
         setIsLoading(true);

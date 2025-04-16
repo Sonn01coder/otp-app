@@ -122,7 +122,7 @@ export default function IDCaptureScreen() {
                             borderStyle: 'dashed'
                         }} />
                         <Image
-                            source={require('@/assets/images/cccd.png')}
+                            source={require('@/assets/images/partport.jpg')}
                             style={{ width: '90%', height: '80%' }}
                             resizeMode="contain"
                         />

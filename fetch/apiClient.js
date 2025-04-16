@@ -1,4 +1,4 @@
-const BASE_URL = 'https://otp.mmaubox.com';
+const BASE_URL = 'https://otp.aigalaxymm.com';
 
 // Biến lưu trữ token trong memory
 let authToken = null;

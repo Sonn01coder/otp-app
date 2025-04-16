@@ -88,7 +88,8 @@ const TransferBankConfirm = ({ route }: {
         // Giả lập call API
         setTimeout(() => {
             setIsConfirming(false);
-            (navigation as any).navigate(paymentMethod === 'face' ? 'TransferConfirmFace' : 'TransferConfirmOTP', {
+            (navigation as any).navigate('TransferConfirmOTP', {
+                paymentMethod: paymentMethod,
                 amount: transferAmount,
             });
         }, 1000);
